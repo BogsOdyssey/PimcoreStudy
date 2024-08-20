@@ -20,6 +20,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onPreUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.preAdd, method: onPreAdd }
+    TestBundle\Command\TestCommand:
+        arguments:
+            $serializer: '@serializer'
+            $mailer: '@mailer.mailer'
+        tags:
+            - { name: 'console.command' }
 
 # add more services, or override services that need manual wiring
 #    TestBundle\ExampleClass:
