@@ -50,7 +50,7 @@ class TestCommand extends AbstractCommand
 //        $output->writeln($objects);
 
         try {
-            $serializedData = $this->serializer->serialize($objects,'json');
+            $serializedData = serialize($objects);
         } catch (\Exception $e) {
             $output->writeln('Error during serialization: ' . $e->getMessage());
             return self::FAILURE;
@@ -70,7 +70,7 @@ class TestCommand extends AbstractCommand
      */
     protected function sendEmail(string $email, string $serializedData)
     {
-        $emailMessage = (new Email())->from('noreply@test.com')->to($email)->subject('Serialized objects')->attach($serializedData,'objects.json','application/json');
+        $emailMessage = (new Email())->from('noreply@test.com')->to($email)->subject('Serialized objects')->attach($serializedData,'objects.txt','text/plain');
 
         $this->mailer->send($emailMessage);
     }
